@@ -26,21 +26,25 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'YAML is required' }, { status: 400 });
     }
 
-    const apiKey = process.env.OPENAI_API_KEY;
+    const apiKey = process.env.DEEPSEEK_API_KEY || process.env.OPENAI_API_KEY;
 
     if (!apiKey) {
-      // Demo validation
       return NextResponse.json({ result: demoValidate(yaml) });
     }
 
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    const baseUrl = process.env.DEEPSEEK_API_KEY
+      ? 'https://api.deepseek.com/v1/chat/completions'
+      : 'https://api.openai.com/v1/chat/completions';
+    const model = process.env.DEEPSEEK_API_KEY ? 'deepseek-chat' : 'gpt-4o-mini';
+
+    const response = await fetch(baseUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: 'gpt-4o-mini',
+        model,
         messages: [
           { role: 'system', content: SYSTEM_PROMPT },
           { role: 'user', content: yaml },
