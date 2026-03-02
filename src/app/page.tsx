@@ -219,6 +219,15 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Blog CTA */}
+      <section className="max-w-4xl mx-auto px-6 pb-20 text-center">
+        <h2 className="text-2xl font-bold mb-4">Learn Kubernetes</h2>
+        <p className="text-gray-400 mb-6">Free guides on K8s YAML, troubleshooting, and best practices.</p>
+        <a href="/blog" className="inline-block px-8 py-3 rounded-lg bg-gray-800 hover:bg-gray-700 font-semibold transition-colors border border-gray-700">
+          📖 Read the Blog →
+        </a>
+      </section>
+
       {/* CTA */}
       <section className="max-w-4xl mx-auto px-6 pb-20 text-center">
         <h2 className="text-2xl font-bold mb-4">Also try our free YAML Validator</h2>
